@@ -2,6 +2,7 @@ def main():
     with open('input.txt', 'r') as file:
         lines = file.read().splitlines()
 
+        ### PART 1
         matrix = [list(l) for l in lines]
 
         count = 0
@@ -42,9 +43,23 @@ def main():
             count += drls.count('XMAS')
             count += drls[::-1].count('XMAS')
 
-        print(count)
+        ### PART 2
+        convul_diags = []
+        count_two = 0
+
+        for row in range(n - 2):  
+            for col in range(n - 2):
+                diag1 = ''.join([matrix[row + i][col + i] for i in range(3)])
+                diag2 = ''.join([matrix[row + i][col + 2 - i] for i in range(3)])
+
+                count_diag1 = diag1.count('MAS') + diag1[::-1].count('MAS')
+                count_diag2 = diag2.count('MAS') + diag2[::-1].count('MAS')
+
+                if count_diag1 > 0 and count_diag2 > 0:
+                    count_two += 1
+
+        print(count, count_two)
 
 
 if __name__ == "__main__":
     main()
-
